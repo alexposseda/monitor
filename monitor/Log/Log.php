@@ -38,11 +38,11 @@
         public function push($data, $target = null, $tpl = null){
             if(!is_array($data)){
                 $data = [
-                    'date'    => date('Y-m-d H:i:s'),
+                    'datetime'    => date('Y-m-d H:i:s'),
                     'message' => $data
                 ];
             }else{
-                $data['date'] = date('Y-m-d H:i:s');
+                $data['datetime'] = date('Y-m-d H:i:s');
             }
             
             $template = (is_null($tpl)) ? $this->_template : $tpl;

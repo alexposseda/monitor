@@ -1,5 +1,5 @@
 <?php
-    namespace core\Messenger;
+    namespace monitor\Messenger;
     
     class SMTPMail
     {

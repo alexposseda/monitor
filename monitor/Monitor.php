@@ -72,12 +72,11 @@
                 }
                 
                 if($service->log){
-                    $this->_log->push($service->getResult(), $service->getHash());
+                    $this->_log->push($service->getResult(true), $service->getHash(), $service->logTemplate);
                 }
                 
                 if($service->statusChanged()){
-                    $details = [];
-                    $this->_messenger->createMessage($details);
+                    $this->_messenger->createMessage($service->getResult());
                 }
             }
             

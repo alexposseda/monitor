@@ -33,9 +33,9 @@
             $this->title = $title;
             $this->log   = $log;
             
-            foreach($params as $key => $value){
-                if(isset($this->$key)){
-                    $this->$key = $value;
+            foreach($this as $key => $value){
+                if(isset($params[$key])){
+                    $this->$key = $params[$key];
                 }
             }
             
@@ -105,10 +105,12 @@
                     throw new \Exception('Validator [' . $validatorName . '] not defined!');
                 }
                 
-                $this->$vn($validatorParams);
+                if(!$this->$vn($validatorParams)){
+                    return false;
+                }
             }
             
-            return empty($this->_error);
+            return true;
         }
         
         /**
@@ -147,7 +149,7 @@
             if(file_exists($file)){
                 $json = file_get_contents($file);
                 
-                return json_decode($json);
+                return json_decode($json, true);
             }
             
             return null;
@@ -158,6 +160,18 @@
          */
         public function getStatus(){
             return $this->_status;
+        }
+        
+        public function setStatus($newStatus){
+            if(is_null($this->_status) OR $this->_status == self::STATUS_SUCCESS){
+                $this->_status = $newStatus;
+            }else{
+                if($this->_status != self::STATUS_ERROR){
+                    if($this->_status == self::STATUS_WARNING AND $newStatus == self::STATUS_ERROR){
+                        $this->_status = self::STATUS_ERROR;
+                    }
+                }
+            }
         }
         
         /**
