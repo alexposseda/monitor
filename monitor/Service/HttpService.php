@@ -70,7 +70,7 @@
                 }
                 
                 if(!empty($result['params']['data'])){
-                    $result['params']['data'] = http_build_query($result['params']['data']);
+                    $result['params']['data'] = urldecode(http_build_query($result['params']['data']));
                 }
                 
                 foreach($result['params'] as $key => $value){
@@ -153,6 +153,7 @@
             ];
             
             if($this->_response === false){
+                $this->setStatus(self::STATUS_ERROR);
                 $this->addError(curl_error($curl));
                 curl_close($curl);
                 
