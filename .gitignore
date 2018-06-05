@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 config/
+!config/monitor_example.conf.php
+!config/services_example.conf.php
 logs/
 message.html
 storage/

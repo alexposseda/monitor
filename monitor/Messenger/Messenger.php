@@ -15,7 +15,7 @@
             $this->_messageTemplate = $params['message_template'];
             $this->_messageLayout   = $params['message_layout'];
             unset($params['message_template'], $params['message_layout']);
-            $this->_mailer          = new SMTPMail($params);
+            $this->_mailer = new SMTPMail($params);
         }
         
         public function createMessage($data){
@@ -29,11 +29,10 @@
         public function sendMessage($params){
             if(!empty($this->_messageBlocks)){
                 $body = $this->compose();
-    
-                //            foreach($params['recipients'] as $recipient){
-                //                $this->_mailer->send($params['from'], $recipient, $params['subject'], $body);
-                //            }
-                file_put_contents('message.html', $body);
+                
+                foreach($params['recipients'] as $recipient){
+                    $this->_mailer->send($params['from'], $recipient, $params['subject'], $body);
+                }
             }
         }
         
